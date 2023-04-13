@@ -4,7 +4,13 @@ from termcolor import colored
 
 
 API_KEY = "ba65189b5bb8ee63482c08473cc22602"
-BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
+# BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
+BASE_URL = "https://open-weather13.p.rapidapi.com/city"
+
+HEADERS = {
+    "X-RapidAPI-Key": "4dd693a319msh1fec678abf131f3p1954f7jsn0477517b24c6",
+    "X-RapidAPI-Host": "open-weather13.p.rapidapi.com"
+    }
 Celsius = 273.15
 
 
@@ -40,21 +46,30 @@ def get_user_inputs():
 
 
 def test_rapid():
-    url = "https://open-weather13.p.rapidapi.com/city/landon"
+    while True:
+        try:
+            city = input('please enter the name of the city: ')
+            request_url = f"{BASE_URL}/{city}"
+            response = requests.request("GET", request_url, headers=HEADERS)
+            print(response.text)
+            # response = requests.get(request_url)
 
-    headers = {
-        "X-RapidAPI-Key": "4dd693a319msh1fec678abf131f3p1954f7jsn0477517b24c6",
-        "X-RapidAPI-Host": "open-weather13.p.rapidapi.com"
-    }
-
-    response = requests.request("GET", url, headers=headers)
-
-    print(response.text)
+            if response.status_code == 200:
+                data = response.json()
+                weather = data['weather'][0]['main']
+                temperature = data['main']['temp']
+                print('The weather in ' + city + ' is ' + weather)
+                print("and the temperature : ", temperature, "Celsius")
+                break
+            else:
+                print(colored('An error accurred', 'red'))
+        except ValueError as e:
+            print(colored(f"Invalid entry: {e}\n", "red", attrs=['bold']))
 
 
 def main():
     test_rapid()
-    get_user_inputs()
+    # get_user_inputs()
     
 
 main()

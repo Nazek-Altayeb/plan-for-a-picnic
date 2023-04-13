@@ -39,7 +39,21 @@ def get_user_inputs():
             print(colored(f"Invalid entry: {e}\n", "red", attrs=['bold']))
 
 
+def test_rapid():
+    url = "https://open-weather13.p.rapidapi.com/city/landon"
+
+    headers = {
+        "X-RapidAPI-Key": "4dd693a319msh1fec678abf131f3p1954f7jsn0477517b24c6",
+        "X-RapidAPI-Host": "open-weather13.p.rapidapi.com"
+    }
+
+    response = requests.request("GET", url, headers=headers)
+
+    print(response.text)
+
+
 def main():
+    test_rapid()
     get_user_inputs()
     
 

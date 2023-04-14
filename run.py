@@ -115,14 +115,20 @@ def get_user_inputs():
             print(colored(f"Invalid entry: {e}\n", "red", attrs=['bold']))
 
 
-def learn_about_us():
+def learn_about_project():
     """
     Get user name and the name of the city s/he is at
     """
+    clear_console()
     print(colored("Welcome to Plan_For_A_picnic project.\n", "green"))
     print(colored("The project gives advises according to the weather condition, \nand gives recommondation for an out door picnic in next 24 hours.\n", "green"))
-    print(colored("Please select one of the options below to proceed", "yellow"))
-    options()
+    back_to_main_page = input("Press enter to return back to the main page")
+    if back_to_main_page is None:
+        clear_console()
+        options()
+    else:
+        clear_console()
+        options()
 
 
 def options():
@@ -142,7 +148,7 @@ def select_option():
     try:
         option = int(input(""))
         if option == 1:
-            learn_about_us()
+            learn_about_project()
 
         elif option == 2:
             main()

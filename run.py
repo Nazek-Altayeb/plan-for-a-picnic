@@ -2,6 +2,8 @@ import requests
 import time
 from os import system, name
 from termcolor import colored
+import gspread
+from google.oauth2.service_account import Credentials
 
 
 API_KEY = "ba65189b5bb8ee63482c08473cc22602"
@@ -10,8 +12,17 @@ BASE_URL = "https://open-weather13.p.rapidapi.com/city"
 HEADERS = {
     "X-RapidAPI-Key": "4dd693a319msh1fec678abf131f3p1954f7jsn0477517b24c6",
     "X-RapidAPI-Host": "open-weather13.p.rapidapi.com"
-    }
-Celsius = 273.15
+}
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('plan_for_a_picnic')
 
 
 def start():
@@ -63,7 +74,8 @@ def get_user_inputs():
     while True:
         try:
             user_name = input(colored("Enter name: ", "green")).capitalize()
-            city = input('please ' + user_name + ' enter the name of the city :')
+            city = input('please ' + user_name +
+                         ' enter the name of the city :')
             request_url = f"{BASE_URL}/{city}"
             response = requests.request("GET", request_url, headers=HEADERS)
             # print(response.text)
@@ -124,23 +136,39 @@ def select_option():
             main()
 
         elif option == 3:
-            main()
+            get_activity_details()
 
         else:
             raise ValueError
     except ValueError:
         print("Not a valid input. Please type '1' or '2' ", "your selection")
         select_option()
-        
 
-def picnic_details():
+
+def get_activity_details():
     """
     get user's picnic-details (picnic duration, date time, activity, )
     """
+    # sales = SHEET.worksheet('sales')
+    # data = sales.get_all_values()
+    # print(data)
+    print("Please enter the following activity details")
+    print("You will be asked to enter them one by one")
+    while True:
+        try:
+            activity_name = input(colored("Enter the activity name: ", "green"))
+            # insert into plan_for_picnic spread sheet
+            if activity_name.isalpha():
+                print("c")
+                break
+            else:
+                print(colored('Only alphabetical characters allowed', 'red'))
+        except ValueError as error:
+            print(colored(f"Invalid entry: {error}\n", "red", attrs=['bold']))
 
 
 def main():
     get_user_inputs()
-    
+
 
 start()

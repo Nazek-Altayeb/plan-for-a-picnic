@@ -147,7 +147,7 @@ def select_option():
 
 def get_activity_details():
     """
-    get user's picnic-details (picnic duration, date time, activity, )
+    get user's picnic-details (picnic duration, date time, activity name, )
     """
     # sales = SHEET.worksheet('sales')
     # data = sales.get_all_values()
@@ -164,7 +164,7 @@ def get_activity_details():
             else:
                 print(colored('Only alphabetical characters allowed', 'red'))
         except ValueError as error:
-            print(colored(f"Invalid entry: {error}\n", "red", attrs=['bold']))
+            print(colored(f"Invalid entry: {error}\n", "red"))
 
 
 def main():

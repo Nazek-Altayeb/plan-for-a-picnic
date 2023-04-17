@@ -66,7 +66,7 @@ def get_user_inputs():
             city = input('please ' + user_name + ' enter the name of the city :')
             request_url = f"{BASE_URL}/{city}"
             response = requests.request("GET", request_url, headers=HEADERS)
-            print(response.text)
+            # print(response.text)
             # response = requests.get(request_url)
 
             if response.status_code == 200:
@@ -106,7 +106,8 @@ def options():
     """
     print("1 - Learn about plan_for_a_picnic")
     print("2 - Search weather ")
-    print("Please type '1' or '2' below to select the related option")
+    print("3 - Enter the picnic details ")
+    print("Please type '1', '2' or '3' below to select the related option")
     select_option()
 
 
@@ -122,11 +123,20 @@ def select_option():
         elif option == 2:
             main()
 
+        elif option == 3:
+            main()
+
         else:
             raise ValueError
     except ValueError:
         print("Not a valid input. Please type '1' or '2' ", "your selection")
         select_option()
+        
+
+def picnic_details():
+    """
+    get user's picnic-details (picnic duration, date time, activity, )
+    """
 
 
 def main():

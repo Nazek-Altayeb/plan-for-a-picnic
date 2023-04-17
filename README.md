@@ -58,7 +58,9 @@
 
 *-* CSS Validation (jigsaw).
 
-*-* PythonChecker
+*-* Python Validation
+
+![Pylint test result](assets/images/pylint-test-result.png)
    
 
 

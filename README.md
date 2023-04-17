@@ -54,11 +54,18 @@
    * Display the most temperate weather in the comming few days according to the name of the city the user will enter. 
 
 # Testing
-*-* User inputs.
+## Code Validation / User inputs.
 
-*-* CSS Validation (jigsaw).
+The data being entered by user are validated to ensure the intended values are entered, the following are some examples 
 
-*-* Python Validation
+![Validate user input ](assets/images/user-input-validation-results.png)
+
+## HTML Validation.
+Changes have been make to the mock terminal style, accordingly the layout.html has been tested and the results come with no errors or warning.
+
+![HTML validation result](assets/images/HTML-validation-result.png)
+
+## Python Validation
 
 ![Pylint test result](assets/images/pylint-test-result.png)
    

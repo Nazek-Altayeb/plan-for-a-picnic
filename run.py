@@ -74,8 +74,19 @@ def get_user_inputs():
     while True:
         try:
             user_name = input(colored("Enter name: ", "green")).capitalize()
-            city = input('please ' + user_name +
-                         ' enter the name of the city :')
+            if not user_name.isalpha():
+                print(colored('Only alphabetical characters allowed', 'red'))
+
+            else:
+                break
+        except ValueError as e:
+            print(colored(f"Invalid entry: {e}\n", "red", attrs=['bold']))
+
+    while True:
+        try:
+            city = input('please enter the name of the city :')
+            if not city.isalpha():
+                print(colored('Only alphabetical characters allowed', 'red')) 
             request_url = f"{BASE_URL}/{city}"
             response = requests.request("GET", request_url, headers=HEADERS)
             # print(response.text)

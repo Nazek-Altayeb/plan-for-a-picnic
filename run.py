@@ -19,10 +19,10 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-WEATHER_RECOMMENDATIONS = {
-        "Clouds": "Stay Inside",
-        "clear": "suitable for picnic"
-    }
+# WEATHER_RECOMMENDATIONS = {
+#         "Clouds": "Stay Inside",
+#         "clear": "suitable for picnic"
+#     }
 
 
 CREDS = Credentials.from_service_account_file('creds.json')
@@ -81,7 +81,7 @@ def get_user_inputs():
         try:
             user_name = input(colored("Enter name: ", "green")).capitalize()
             if not user_name.isalpha():
-                print(colored('Only alphabetical characters allowed', 'red'))
+                raise ValueError(f"Only alphabetical characters allowed, you entered {user_name}")
 
             else:
                 break
@@ -91,24 +91,32 @@ def get_user_inputs():
     while True:
         try:
             city = input('please enter the name of the city :')
-            # if not city.isalpha():
-            #     print(colored('Only alphabetical characters allowed', 'red')) 
+            if not city.isalpha():
+                raise ValueError(f"Only alphabetical characters allowed, you entered {city}")
+
+            # load weather details for the given city from the Rapid API    
             request_url = f"{BASE_URL}/{city}"
             response = requests.request("GET", request_url, headers=HEADERS)
             print(response.text)
-            # response = requests.get(request_url)
 
-            if response.status_code == 200:
+            if response.status_code == 200:                
                 data = response.json()
+                # assign weather/temperature/humidity details to local variables
                 weather = data['weather'][0]['main']
                 temperature = data['main']['temp']
                 humidity = data['main']['humidity']
                 print('The weather in ' + city + ' is ' + weather + ',')
                 print("the temperature : ", temperature, "Fahrenheit, ")
                 print("the humidity : ", humidity, "%.")
+
+                # display recommondation to the user whether it is good idea to go out or not 
                 feedback = recommondation
                 recommend = feedback(temperature, humidity)
                 print(recommend)
+
+                # save user/weather/recommondation details in the google sheet
+                # update_worksheet(picnic_data, "activities")
+
                 # check_temp = is_temperature_high
                 # is_temp_high = check_temp(temperature)
                 # print(is_temp_high)
@@ -179,20 +187,6 @@ def select_option():
         select_option()
 
 
-# def is_temperature_high(temperature):
-#     if temperature > 85:
-#         return True
-#     else:
-#         return False
-
-
-# def is_humidity_high(humidity):
-#     if humidity > 80:
-#         return True
-#     else:
-#         return False
-
-
 def recommondation(temperature, humidity):
     if (temperature > 85) and (humidity > 80):
         return 'stay inside as the weather is hot and the humidity is high'
@@ -202,6 +196,17 @@ def recommondation(temperature, humidity):
         return 'it is unlikely you will enjoy your picnic, the humid is high out side.'
     elif (temperature >= 50) and (temperature <= 85) and (humidity <= 80):
         return 'The weather looks great, enjoy your picnic'
+
+
+# reference : Code Institute (Love-Sandwiches walk through Project) 
+def update_worksheet(data, worksheet):
+    """
+    Update worksheet, add new row with the list data provided
+    """
+    print(f"Updating {worksheet} worksheet...\n")
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
+    print(f" {worksheet} worksheet Updated successfully...\n")
 
 
 def get_activity_details():

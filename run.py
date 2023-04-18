@@ -31,6 +31,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('plan_for_a_picnic')
 
 
+# reference : https://github.com/Code-Institute-Submissions/pokedex/blob/main/run.py
 def start():
     """
     Load the project logo
@@ -53,6 +54,7 @@ def start():
     options()
 
 
+# reference : https://github.com/Code-Institute-Submissions/pokedex/blob/main/run.py
 def clear_console():
     """
     Clear screen

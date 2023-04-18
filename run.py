@@ -24,7 +24,6 @@ SCOPE = [
 #         "clear": "suitable for picnic"
 #     }
 
-
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
@@ -79,6 +78,7 @@ def get_user_inputs():
     print("Lets start.\n")
     time.sleep(2)
     print(colored("What is your name?", "yellow"))
+    user_and_weather_info = None
     while True:
         try:
             user_name = input(colored("Enter name: ", "green")).capitalize()
@@ -86,6 +86,7 @@ def get_user_inputs():
                 raise ValueError(f"Only alphabetical characters allowed, you entered {user_name}")
 
             else:
+                # insert name in google sheet
                 break
         except ValueError as e:
             print(colored(f"Invalid entry: {e}\n", "red", attrs=['bold']))
@@ -99,7 +100,7 @@ def get_user_inputs():
             # load weather details for the given city from the Rapid API    
             request_url = f"{BASE_URL}/{city}"
             response = requests.request("GET", request_url, headers=HEADERS)
-            print(response.text)
+            # print(response.text)
 
             if response.status_code == 200:                
                 data = response.json()
@@ -111,6 +112,10 @@ def get_user_inputs():
                 print("the temperature : ", temperature, "Fahrenheit, ")
                 print("the humidity : ", humidity, "%.")
 
+                # put user and weather details in one object row
+                user_and_weather_info = [user_name, city, weather, temperature, humidity]
+                print('print from inner block',user_and_weather_info)
+
                 # display recommondation to the user whether it is good idea to go out or not 
                 feedback = recommondation
                 recommend = feedback(temperature, humidity)
@@ -119,25 +124,36 @@ def get_user_inputs():
                 # save user/weather/recommondation details in the google sheet
                 # update_worksheet(picnic_data, "activities")
 
-                # check_temp = is_temperature_high
-                # is_temp_high = check_temp(temperature)
-                # print(is_temp_high)
-                # check_humidity = is_humidity_high
-                # is_humid_high = check_humidity(humidity)
-                # print(is_humid_high)
                 break
             else:
                 print(colored('An error accurred', 'red'))
         except ValueError as e:
-            print(colored(f"Invalid entry: {e}\n", "red", attrs=['bold']))
-
-    back = input("Press enter to return back to the main page")
-    if back is None:
+            print(colored(f"Invalid entry: {e}\n", "red", attrs=['bold']))     
+    print('print from outer block' ,user_and_weather_info)
+    # display the options for a new round of selections
+    back_to_main_page = input("Press enter to return back to the main page")
+    if back_to_main_page is None:
         clear_console()
         options()
     else:
         clear_console()
         options()
+    
+    return user_and_weather_info
+
+
+# def join_user_and_weather_info(user_name, city, weather, temperature, humidity):
+#     user_and_weather_details = [user_name, city, weather, temperature, humidity]
+#     return user_and_weather_details
+
+def transfer_data_to_google_sheet():    
+    user_weather_info = get_user_inputs()
+    activity_info = get_activity_details()
+    print('user_weather_info', user_weather_info)
+    print('activity_info', activity_info)
+    data = [user_weather_info, activity_info]
+    update_worksheet(data, 'activities')
+    # print(data)
 
 
 def learn_about_project():
@@ -146,7 +162,9 @@ def learn_about_project():
     """
     clear_console()
     print(colored("Welcome to Plan_For_A_picnic project.\n", "green"))
-    print(colored("The project gives advises according to the weather condition, \nand gives recommondation for an out door picnic in next 24 hours.\n", "green"))
+    print(colored("The project gives recommondation whether it's a good idea to go out  according to the weather condition, \n", "green"))
+
+    # display the options for a new round of selections
     back_to_main_page = input("Press enter to return back to the main page")
     if back_to_main_page is None:
         clear_console()
@@ -163,7 +181,8 @@ def options():
     print("1 - Learn about plan_for_a_picnic")
     print("2 - Search weather ")
     print("3 - Enter the picnic details ")
-    print("Please type '1', '2' or '3' below to select the related option")
+    print("4 - Save your data in our records ")
+    print("Please type '1', '2', '3' or '4' below to select the related option")
     select_option()
 
 
@@ -181,11 +200,14 @@ def select_option():
 
         elif option == 3:
             get_activity_details()
+        
+        elif option == 4:
+            transfer_data_to_google_sheet()
 
         else:
             raise ValueError
     except ValueError:
-        print("Not a valid input. Please type '1' or '2' ", "your selection")
+        print("Not a valid input. Please type '1', '2', '3' or '4' ", "your selection")
         select_option()
 
 
@@ -220,25 +242,31 @@ def get_activity_details():
     # print(data)
     print("Please enter the following activity details")
     print("You will be asked to enter them one by one")
+    activity_name = None
     while True:
         try:
             activity_name = input(colored("Enter the activity name: ", "green"))
             # insert into plan_for_picnic spread sheet
             if activity_name.isalpha():
-                print("c")
+                print('activity from inner block',activity_name)
                 break
             else:
                 print(colored('Only alphabetical characters allowed', 'red'))
         except ValueError as error:
             print(colored(f"Invalid entry: {error}\n", "red"))
-
-    back = input("Press enter to return back to the main page")
-    if back is None:
+    
+    
+    print('activity from outer block',activity_name)
+    # display the options for a new round of selections
+    back_to_main_page = input("Press enter to return back to the main page")
+    if back_to_main_page is None:
         clear_console()
         options()
     else:
         clear_console()
         options()
+    
+    return activity_name
 
 
 def main():

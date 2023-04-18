@@ -19,6 +19,12 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
 ]
 
+WEATHER_RECOMMENDATIONS = {
+        "Clouds": "Stay Inside",
+        "clear": "suitable for picnic"
+    }
+
+
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
@@ -85,11 +91,11 @@ def get_user_inputs():
     while True:
         try:
             city = input('please enter the name of the city :')
-            if not city.isalpha():
-                print(colored('Only alphabetical characters allowed', 'red')) 
+            # if not city.isalpha():
+            #     print(colored('Only alphabetical characters allowed', 'red')) 
             request_url = f"{BASE_URL}/{city}"
             response = requests.request("GET", request_url, headers=HEADERS)
-            # print(response.text)
+            print(response.text)
             # response = requests.get(request_url)
 
             if response.status_code == 200:
@@ -105,6 +111,14 @@ def get_user_inputs():
                 print(colored('An error accurred', 'red'))
         except ValueError as e:
             print(colored(f"Invalid entry: {e}\n", "red", attrs=['bold']))
+
+    back = input("Press enter to return back to the main page")
+    if back is None:
+        clear_console()
+        options()
+    else:
+        clear_console()
+        options()
 
 
 def learn_about_project():
@@ -176,6 +190,14 @@ def get_activity_details():
                 print(colored('Only alphabetical characters allowed', 'red'))
         except ValueError as error:
             print(colored(f"Invalid entry: {error}\n", "red"))
+            
+    back = input("Press enter to return back to the main page")
+    if back is None:
+        clear_console()
+        options()
+    else:
+        clear_console()
+        options()
 
 
 def main():

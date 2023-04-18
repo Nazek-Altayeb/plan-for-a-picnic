@@ -104,8 +104,17 @@ def get_user_inputs():
                 temperature = data['main']['temp']
                 humidity = data['main']['humidity']
                 print('The weather in ' + city + ' is ' + weather + ',')
-                print("the temperature : ", temperature, "Celsius, ")
+                print("the temperature : ", temperature, "Fahrenheit, ")
                 print("the humidity : ", humidity, "%.")
+                feedback = recommondation
+                recommend = feedback(temperature, humidity)
+                print(recommend)
+                # check_temp = is_temperature_high
+                # is_temp_high = check_temp(temperature)
+                # print(is_temp_high)
+                # check_humidity = is_humidity_high
+                # is_humid_high = check_humidity(humidity)
+                # print(is_humid_high)
                 break
             else:
                 print(colored('An error accurred', 'red'))
@@ -170,6 +179,31 @@ def select_option():
         select_option()
 
 
+# def is_temperature_high(temperature):
+#     if temperature > 85:
+#         return True
+#     else:
+#         return False
+
+
+# def is_humidity_high(humidity):
+#     if humidity > 80:
+#         return True
+#     else:
+#         return False
+
+
+def recommondation(temperature, humidity):
+    if (temperature > 85) and (humidity > 80):
+        return 'stay inside as the weather is hot and the humidity is high'
+    elif (temperature < 50):
+        return 'stay inside as the weather is cold'
+    elif (humidity > 80):
+        return 'it is unlikely you will enjoy your picnic, the humid is high out side.'
+    elif (temperature >= 50) and (temperature <= 85) and (humidity <= 80):
+        return 'The weather looks great, enjoy your picnic'
+
+
 def get_activity_details():
     """
     get user's picnic-details (picnic duration, date time, activity name, )
@@ -190,7 +224,7 @@ def get_activity_details():
                 print(colored('Only alphabetical characters allowed', 'red'))
         except ValueError as error:
             print(colored(f"Invalid entry: {error}\n", "red"))
-            
+
     back = input("Press enter to return back to the main page")
     if back is None:
         clear_console()

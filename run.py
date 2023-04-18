@@ -200,6 +200,7 @@ def select_option():
 
         elif option == 3:
             get_activity_details()
+            transfer_data_to_google_sheet()
         
         elif option == 4:
             transfer_data_to_google_sheet()

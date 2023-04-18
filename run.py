@@ -153,7 +153,7 @@ def transfer_data_to_google_sheet():
     print('activity_info', activity_info)
     data = [user_weather_info, activity_info]
     update_worksheet(data, 'activities')
-    # print(data)
+    print('all data', data)
 
 
 def learn_about_project():
@@ -274,3 +274,4 @@ def main():
 
 
 start()
+transfer_data_to_google_sheet()

@@ -4,6 +4,7 @@ from os import system, name
 from termcolor import colored
 import gspread
 from google.oauth2.service_account import Credentials
+import numpy as np
 
 
 
@@ -140,17 +141,20 @@ def transfer_data_to_google_sheet():
             # if (user_weather_info != None) and (activity != None):
                 print("IN transfer_data_to_google_sheet")
                 user_weather_details = user_weather_info
+                # user_weather_details_array = np.array(user_weather_details)
                 print("STILL IN transfer_data_to_google_sheet")
                 activity_info = activity
+                # activity_info_array = np.array(activity_info)
                 print('user_weather_info', user_weather_details)
                 print('activity_info', activity_info)
-                data = user_weather_info.extend(activity_info)
+                # data = np.concatenate((user_weather_details_array, activity_info_array))
+                data = user_weather_details + activity_info
+                print('data being transfer to google sheet', data)
                 update_worksheet(data, 'activities')
-                print('all data', data)
             # else:                
             #     print(colored('Saving your details could be possible only when all details are exist', 'yellow'))              
         except ValueError as e:
-            print(colored(f"An error accurred{e}\n", "red", attrs=['bold'])) 
+            print(colored(f"An error accurred : {e}\n", "red", attrs=['bold'])) 
         back_to_main_page = input("Press enter to return back to the main page, and choose options 2 then 3")
         if back_to_main_page is None:
             clear_console()
@@ -253,6 +257,7 @@ def get_activity_details():
     print("Please enter the following activity details")
     print("You will be asked to enter them one by one")
     activity_name = None
+    # enter the activity name
     while True:
         try:
             activity_name = input(colored("Enter the activity name: ", "green"))
@@ -264,8 +269,24 @@ def get_activity_details():
                 print(colored('Only alphabetical characters allowed', 'red'))
         except ValueError as error:
             print(colored(f"Invalid entry: {error}\n", "red"))
+    # enter the activity duration
+    while True:
+        try:
+            activity_duration = input(colored("Enter the activity duration in hours: ", "green"))
+            # insert into plan_for_picnic spread sheet
+            if activity_duration.isnumeric():
+                print('activity duration from inner block',activity_duration )
+                break
+            else:
+                print(colored('Only numeric values allowed', 'red'))
+        except ValueError as error:
+            print(colored(f"Invalid entry: {error}\n", "red"))
+    # put activity details in one object row
+    activity_info = [activity_name, activity_duration]
+    print('activity info from outer block', activity_info)
+
     print('activity from outer block',activity_name)
-    activity = activity_name
+    activity = activity_info
     print('global user_weather_info', activity)
     # display the options for a new round of selections   
     back_to_main_page = input("Press enter to return back to the main page")

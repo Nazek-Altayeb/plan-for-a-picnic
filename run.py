@@ -144,7 +144,7 @@ def transfer_data_to_google_sheet():
                 activity_info = activity
                 print('user_weather_info', user_weather_details)
                 print('activity_info', activity_info)
-                data = [user_weather_info, activity_info]
+                data = user_weather_info.extend(activity_info)
                 update_worksheet(data, 'activities')
                 print('all data', data)
             # else:                

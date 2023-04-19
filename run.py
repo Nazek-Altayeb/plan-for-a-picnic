@@ -19,10 +19,6 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-# WEATHER_RECOMMENDATIONS = {
-#         "Clouds": "Stay Inside",
-#         "clear": "suitable for picnic"
-#     }
 
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
@@ -138,7 +134,6 @@ def get_user_inputs():
     else:
         clear_console()
         options()
-    
     return user_and_weather_info
 
 
@@ -146,10 +141,13 @@ def get_user_inputs():
 #     user_and_weather_details = [user_name, city, weather, temperature, humidity]
 #     return user_and_weather_details
 
+
 def transfer_data_to_google_sheet():    
-    user_weather_info = get_user_inputs()
+    print("IN transfer_data_to_google_sheet")
+    user_weather_details = get_user_inputs()
+    print("STILL IN transfer_data_to_google_sheet")
     activity_info = get_activity_details()
-    print('user_weather_info', user_weather_info)
+    print('user_weather_info', user_weather_details)
     print('activity_info', activity_info)
     data = [user_weather_info, activity_info]
     update_worksheet(data, 'activities')
@@ -193,16 +191,19 @@ def select_option():
     try:
         option = int(input(""))
         if option == 1:
+            print("OPTION 1")
             learn_about_project()
 
         elif option == 2:
+            print("OPTION 2")
             main()
 
         elif option == 3:
+            print("OPTION 3")
             get_activity_details()
-            transfer_data_to_google_sheet()
         
         elif option == 4:
+            print("OPTION 4")
             transfer_data_to_google_sheet()
 
         else:
@@ -255,8 +256,6 @@ def get_activity_details():
                 print(colored('Only alphabetical characters allowed', 'red'))
         except ValueError as error:
             print(colored(f"Invalid entry: {error}\n", "red"))
-    
-    
     print('activity from outer block',activity_name)
     # display the options for a new round of selections
     back_to_main_page = input("Press enter to return back to the main page")
@@ -266,7 +265,6 @@ def get_activity_details():
     else:
         clear_console()
         options()
-    
     return activity_name
 
 
@@ -275,4 +273,3 @@ def main():
 
 
 start()
-transfer_data_to_google_sheet()

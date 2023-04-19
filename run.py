@@ -9,10 +9,6 @@ from google.oauth2.service_account import Credentials
 
 API_KEY = "ba65189b5bb8ee63482c08473cc22602"
 
-HEADERS = {
-    "X-RapidAPI-Key": "4dd693a319msh1fec678abf131f3p1954f7jsn0477517b24c6",
-    "X-RapidAPI-Host": "open-weather13.p.rapidapi.com"
-}
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -24,8 +20,9 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('plan_for_a_picnic')
-user_weather_info = None
-activity = None
+
+user_weather_info = ""
+activity = ""
 
 # reference : https://github.com/Code-Institute-Submissions/pokedex/blob/main/run.py
 def start():
@@ -64,10 +61,12 @@ def clear_console():
         _ = system('clear')
 
 
+
 def get_user_inputs():
     """
     Get user name and the name of the city s/he is at
     """
+    global user_weather_info
     print("Welcome to Plan_For_A_picnic project.\n")
     time.sleep(2)
     print("We are going to ask you couple of questions .\n")
@@ -124,6 +123,8 @@ def get_user_inputs():
         except ValueError as e:
             print(colored(f"Invalid entry: {e}\n", "red", attrs=['bold']))     
     print('print from outer block' ,user_and_weather_info)
+    user_weather_info = user_and_weather_info
+    print('global user_weather_info', user_weather_info)
     # display the options for a new round of selections
     back_to_main_page = input("Press enter to return back to the main page")
     if back_to_main_page is None:
@@ -132,14 +133,11 @@ def get_user_inputs():
     else:
         clear_console()
         options()
-    global user_weather_info
-    user_weather_info = user_and_weather_info
 
 
 def transfer_data_to_google_sheet():    
-   # while True:
         try:
-            if (user_weather_info != None) and (activity != None):
+            # if (user_weather_info != None) and (activity != None):
                 print("IN transfer_data_to_google_sheet")
                 user_weather_details = user_weather_info
                 print("STILL IN transfer_data_to_google_sheet")
@@ -149,10 +147,8 @@ def transfer_data_to_google_sheet():
                 data = [user_weather_info, activity_info]
                 update_worksheet(data, 'activities')
                 print('all data', data)
-                # break
-            else:                
-                print(colored('Saving your details could be possible only when all details are exist', 'yellow'))   
-                # break             
+            # else:                
+            #     print(colored('Saving your details could be possible only when all details are exist', 'yellow'))              
         except ValueError as e:
             print(colored(f"An error accurred{e}\n", "red", attrs=['bold'])) 
         back_to_main_page = input("Press enter to return back to the main page, and choose options 2 then 3")
@@ -245,7 +241,9 @@ def update_worksheet(data, worksheet):
     print(f" {worksheet} worksheet Updated successfully...\n")
 
 
+
 def get_activity_details():
+    global activity
     """
     get user's picnic-details (picnic duration, date time, activity name, )
     """
@@ -267,7 +265,9 @@ def get_activity_details():
         except ValueError as error:
             print(colored(f"Invalid entry: {error}\n", "red"))
     print('activity from outer block',activity_name)
-    # display the options for a new round of selections
+    activity = activity_name
+    print('global user_weather_info', activity)
+    # display the options for a new round of selections   
     back_to_main_page = input("Press enter to return back to the main page")
     if back_to_main_page is None:
         clear_console()
@@ -275,8 +275,7 @@ def get_activity_details():
     else:
         clear_console()
         options()
-    global activity
-    activity = activity_name
+    
 
 
 def main():

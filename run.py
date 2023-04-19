@@ -6,8 +6,8 @@ import gspread
 from google.oauth2.service_account import Credentials
 
 
+
 API_KEY = "ba65189b5bb8ee63482c08473cc22602"
-BASE_URL = "https://open-weather13.p.rapidapi.com/city"
 
 HEADERS = {
     "X-RapidAPI-Key": "4dd693a319msh1fec678abf131f3p1954f7jsn0477517b24c6",
@@ -24,7 +24,8 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('plan_for_a_picnic')
-
+user_weather_info = None
+activity = None
 
 # reference : https://github.com/Code-Institute-Submissions/pokedex/blob/main/run.py
 def start():
@@ -90,19 +91,17 @@ def get_user_inputs():
     while True:
         try:
             city = input('please enter the name of the city :')
-            if not city.isalpha():
-                raise ValueError(f"Only alphabetical characters allowed, you entered {city}")
 
             # load weather details for the given city from the Rapid API    
-            request_url = f"{BASE_URL}/{city}"
-            response = requests.request("GET", request_url, headers=HEADERS)
-            # print(response.text)
+            response = weather_data = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={API_KEY}")
+            # response = requests.request("GET", request_url, headers=HEADERS)
+            print(response.text)
 
             if response.status_code == 200:                
                 data = response.json()
                 # assign weather/temperature/humidity details to local variables
                 weather = data['weather'][0]['main']
-                temperature = data['main']['temp']
+                temperature = round(data['main']['temp'])
                 humidity = data['main']['humidity']
                 print('The weather in ' + city + ' is ' + weather + ',')
                 print("the temperature : ", temperature, "Fahrenheit, ")
@@ -119,7 +118,6 @@ def get_user_inputs():
 
                 # save user/weather/recommondation details in the google sheet
                 # update_worksheet(picnic_data, "activities")
-
                 break
             else:
                 print(colored('An error accurred', 'red'))
@@ -134,24 +132,36 @@ def get_user_inputs():
     else:
         clear_console()
         options()
-    return user_and_weather_info
-
-
-# def join_user_and_weather_info(user_name, city, weather, temperature, humidity):
-#     user_and_weather_details = [user_name, city, weather, temperature, humidity]
-#     return user_and_weather_details
+    global user_weather_info
+    user_weather_info = user_and_weather_info
 
 
 def transfer_data_to_google_sheet():    
-    print("IN transfer_data_to_google_sheet")
-    user_weather_details = get_user_inputs()
-    print("STILL IN transfer_data_to_google_sheet")
-    activity_info = get_activity_details()
-    print('user_weather_info', user_weather_details)
-    print('activity_info', activity_info)
-    data = [user_weather_info, activity_info]
-    update_worksheet(data, 'activities')
-    print('all data', data)
+   # while True:
+        try:
+            if (user_weather_info != None) and (activity != None):
+                print("IN transfer_data_to_google_sheet")
+                user_weather_details = user_weather_info
+                print("STILL IN transfer_data_to_google_sheet")
+                activity_info = activity
+                print('user_weather_info', user_weather_details)
+                print('activity_info', activity_info)
+                data = [user_weather_info, activity_info]
+                update_worksheet(data, 'activities')
+                print('all data', data)
+                # break
+            else:                
+                print(colored('Saving your details could be possible only when all details are exist', 'yellow'))   
+                # break             
+        except ValueError as e:
+            print(colored(f"An error accurred{e}\n", "red", attrs=['bold'])) 
+        back_to_main_page = input("Press enter to return back to the main page, and choose options 2 then 3")
+        if back_to_main_page is None:
+            clear_console()
+            options()
+        else:
+            clear_console()
+            options()
 
 
 def learn_about_project():
@@ -265,7 +275,8 @@ def get_activity_details():
     else:
         clear_console()
         options()
-    return activity_name
+    global activity
+    activity = activity_name
 
 
 def main():

@@ -45,17 +45,12 @@
 # Features
 ## Existing features
    * Load logo.
-   
    ![weather info ](assets/images/logo.png)
-
    * Display options.
-
    ![weather info ](assets/images/options.png)
-
    * Get entries from user.
    * Load weather info from 'open weather map API'.
    ![weather info ](assets/images/api-weather-info.png)
-
    * Save resulted data in a google sheet.
    ![Activities sheet ](assets/images/activiies_sheet_records.png)
    

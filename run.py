@@ -90,7 +90,7 @@ def get_user_inputs():
             city = input('please enter the name of the city :')
 
             # load weather details for the given city from the Rapid API    
-            response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={API_KEY}", timeout=10)
+            response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={API_KEY}")
 
             if response.status_code == 200:             
                 data = response.json()
@@ -213,7 +213,7 @@ def recommondation(temperature, humidity):
     elif (humidity > 80):
         return 'it is unlikely you will enjoy your picnic, the humid is high out side.'
     elif (temperature >= 50) and (temperature <= 85) and (humidity <= 80):
-        return 'The weather looks great, enjoy your picnic'
+        return 'The weather looks fine, enjoy your picnic'
 
 
 # reference : Code Institute (Love-Sandwiches walk through Project) 

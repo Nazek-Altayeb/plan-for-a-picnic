@@ -40,7 +40,7 @@
    ### Scope
    * The entire application is on a single page site that runs in a mock terminal.
    ### Logic path
-      a flow chart will be added here.
+   ![Program diagram ](assets/images/Plan_for_a_picnic_flowDiagram.png)
 
 # Features
 ## Existing features

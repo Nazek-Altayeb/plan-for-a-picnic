@@ -44,18 +44,18 @@
 
 # Features
 ## Existing features
-   * Load logo.
+* Load logo.
 
    ![logo ](assets/images/logo.png)
-   * Display options.
+* Display options.
 
    ![Options ](assets/images/options.png)
-   * Get entries from user.
-   * Load weather info from 'open weather map API'.
+* Get entries from user.
+* Load weather info from 'open weather map API'.
 
    ![weather info ](assets/images/api-weather-info.png)
-   * Save resulted data in a google sheet.
-   
+* Save resulted data in a google sheet.
+
    ![Activities sheet ](assets/images/activiies_sheet_records.png)
    
 ## Planned features 
@@ -63,11 +63,14 @@
    * Display the most temperate weather in the comming few days according to the name of the city the user will enter. 
 
 # Testing
-## Code Validation / User inputs.
-
-The data being entered by user are validated to ensure the intended values are entered, the following are some examples 
-
+## Code Validation
+1. User inputs.
+The data being entered by user are validated to ensure the intended values are entered, the following is an example.
 ![Validate user input ](assets/images/user-input-validation-results.png)
+
+2. Save non-exist data
+If user chooses option 5 (Save your data in our records) where no data is entered by him/her, a warning letter is displayed.
+![Save non-exist data ](assets/images/save-non-existing-data.png)
 
 ## HTML Validation.
 Changes have been made to the mock terminal style, accordingly the layout.html has been tested and the results come with no errors or warning.

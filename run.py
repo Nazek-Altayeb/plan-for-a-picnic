@@ -114,9 +114,6 @@ def get_user_inputs():
                 feedback = recommondation
                 recommend = feedback(temperature, humidity)
                 print(recommend)
-
-                # save user/weather/recommondation details in the google sheet
-                # update_worksheet(picnic_data, "activities")
                 break
             else:
                 print(colored('An error accurred', 'red'))

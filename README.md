@@ -45,10 +45,14 @@
 # Features
 ## Existing features
    * Load logo.
+   ![weather info ](assets/images/logo.png)
    * Display options.
+   ![weather info ](assets/images/options.png)
    * Get entries from user.
    * Load weather info from 'open weather map API'.
+   ![weather info ](assets/images/api-weather-info.png)
    * Save resulted data in a google sheet.
+   ![Activities sheet ](assets/images/activiies_sheet_records.png)
    * Exit.
    
 ## Planned features 
@@ -84,11 +88,9 @@ The bug was fixed by putting each input in a seperated validation block.
 3. ['requests'](https://docs.python-requests.org/en/latest/)  imported to simplify the calls to the API.
 4. ['gspread'](https://docs.gspread.org/en/v5.3.2/) imported to link python project with the Google sheet.
 5. ['from google.oauth2.service_account import Credentials'](https://pypi.org/project/google-oauth/) was used to link and allow the app access to information, namely Google sheets, in my Google account.
-## Other
-* [Lucidchart](https://www.lucidchart.com/pages/) Visualize the program through flowChart. 
-
-## CSS
-Some css rules have been applied to the mock termainal (applied at both the body and 'run program' button)
+## Other Technologies
+1. [Lucidchart](https://www.lucidchart.com/pages/) : Visualize the program through flowChart. 
+2. [CSS3](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) : Some css rules have been applied to the mock termainal (applied at both the body and 'run program' button)
 
 # Deployment
 
@@ -127,7 +129,9 @@ Some css rules have been applied to the mock termainal (applied at both the body
 
 # Acknowledgements 
 
-* Guidance of the mentor Reuben
+* Thanks for the Tutor Support and my mentor Reuben for guidance and tips.
+* I programmed the project my self. references are added in the code for external source code.
+ 
 
 
  

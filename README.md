@@ -45,9 +45,11 @@
 # Features
 ## Existing features
    * Load logo.
+   
    ![weather info ](assets/images/logo.png)
 
    * Display options.
+
    ![weather info ](assets/images/options.png)
 
    * Get entries from user.

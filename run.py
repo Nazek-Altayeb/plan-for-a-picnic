@@ -214,6 +214,8 @@ def recommondation(temperature, humidity):
         return 'it is unlikely you will enjoy your picnic, the humid is high out side.'
     elif (temperature >= 50) and (temperature <= 85) and (humidity <= 80):
         return 'The weather looks fine, enjoy your picnic'
+    elif (temperature > 85) and (humidity < 80):
+        return 'although no humid out there but it is still hot, it is you choice if you want to go out side'
 
 
 # reference : Code Institute (Love-Sandwiches walk through Project) 

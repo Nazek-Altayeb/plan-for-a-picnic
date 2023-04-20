@@ -5,8 +5,8 @@
 ![Multi Device Mockup](assets/images/plan-for-a-picnic.png)
 
 # objective
-   * The application present how useful could be the usage of API with Google sheets in helping user taking decisions.
-   * A ccording to data analytics process at the data being entered by the user, the user will be able to decide  whether the weather helps to have a picnic and do some activity with the day or not. 
+   * The application present how useful could be the usage of API with Google sheets in helping user taking decisions, and saving history of inputs that are entered by user and the loaded data from the API.
+   * A ccording to data analytics process at the data being entered by the user, the user is given a recommondation to decide whether the weather helps to have a picnic and do some activity within the same day or not. 
 
 # User Experience
 ## Design / Colour scheme
@@ -16,13 +16,13 @@
 
 ## Target audience
   * Readers from all ages.
-  * People that are looking for results according to some data they entered.
+  * People that enjoy data manipulation programs.
 ## User stories
    ### As a site owner, my goal is:
 
    * Presenting descriptions that will lead the user to learn about the purpose of the project.
-   * Providing an easy-to-use and understandable questionnaire, means the user can easily learn the purpose of the questions before typing in the answers.
-   * Guide the user through different options and steps, and display warning messages when ever user entered wrong data.
+   * Providing an easy-to-use and understandable questionnaire, means the user can easily learn the purpose of the questions before typing the answers.
+   * Guide the user through different options and steps, and display warning messages when ever user entered wrong data, or choosing to save data before entering it.
 
    ### As first time visitor:
 
@@ -47,9 +47,11 @@
    * Load logo.
    * Display options.
    * Get entries from user.
-   * Load weather info from 'Rapid api'.
+   * Load weather info from 'open weather map API'.
    * Save resulted data in a google sheet.
-## Planned features
+   * Exit.
+   
+## Planned features 
    * Display nearest cities with related weather details according to the name of the city the user will enter.
    * Display the most temperate weather in the comming few days according to the name of the city the user will enter. 
 
@@ -61,7 +63,7 @@ The data being entered by user are validated to ensure the intended values are e
 ![Validate user input ](assets/images/user-input-validation-results.png)
 
 ## HTML Validation.
-Changes have been make to the mock terminal style, accordingly the layout.html has been tested and the results come with no errors or warning.
+Changes have been made to the mock terminal style, accordingly the layout.html has been tested and the results come with no errors or warning.
 
 ![HTML validation result](assets/images/HTML-validation-result.png)
 
@@ -73,6 +75,7 @@ Changes have been make to the mock terminal style, accordingly the layout.html h
 
 + If user entered not alphapatic value as a city name, he is asked to enter the city name besides his name also once again.
 The bug was fixed by putting each input in a seperated validation block.
++ not possible to pass variables values between functions, the bug was fixed when assign local variables values to the 'global' variables. 
 
 # Technologies
 ## Python libraries
@@ -81,6 +84,8 @@ The bug was fixed by putting each input in a seperated validation block.
 3. ['requests'](https://docs.python-requests.org/en/latest/)  imported to simplify the calls to the API.
 4. ['gspread'](https://docs.gspread.org/en/v5.3.2/) imported to link python project with the Google sheet.
 5. ['from google.oauth2.service_account import Credentials'](https://pypi.org/project/google-oauth/) was used to link and allow the app access to information, namely Google sheets, in my Google account.
+## Other
+* [Lucidchart](https://www.lucidchart.com/pages/) Visualize the program through flowChart. 
 
 ## CSS
 Some css rules have been applied to the mock termainal (applied at both the body and 'run program' button)
@@ -115,7 +120,10 @@ Some css rules have been applied to the mock termainal (applied at both the body
 
 # Credits
 
-* Code Institute for ( link project to google sheet, deploy to mock terminal)
+* Code Institute :  ( link project to google sheet, deploy to mock terminal)
+* other references : 
+    * https://github.com/Code-Institute-Submissions/stock-allocation-tool
+    * https://github.com/Code-Institute-Submissions/pokedex
 
 # Acknowledgements 
 

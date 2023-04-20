@@ -298,6 +298,7 @@ def get_activity_details():
         options()
 
 
+# reference : https://github.com/Code-Institute-Submissions/stock-allocation-tool
 def close_and_exit():
     """
     quit plan_for_a_picnic

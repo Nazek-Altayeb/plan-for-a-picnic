@@ -45,9 +45,9 @@
 # Features
 ## Existing features
    * Load logo.
-   ![logo ](assets/images/api-weather-info.png)
+   ![logo ](assets/images/logo.png)
    * Display options.
-   ![Options ](assets/images/api-weather-info.png)
+   ![Options ](assets/images/options.png)
    * Get entries from user.
    * Load weather info from 'open weather map API'.
    ![weather info ](assets/images/api-weather-info.png)

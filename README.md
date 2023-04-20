@@ -85,7 +85,8 @@ Changes have been made to the mock terminal style, accordingly the layout.html h
 
 + If user entered not alphapatic value as a city name, he is asked to enter the city name besides his name also once again.
 The bug was fixed by putting each input in a seperated validation block.
-+ not possible to pass variables values between functions, the bug was fixed when assign local variables values to the 'global' variables. 
++ Not possible to pass variables values between functions, the bug was fixed when assign local variables values to the 'global' variables. 
++ No recommondation is displayed if the weather is hot and humid is low, this weather condition is then added to the list of 'weather conditions'
 
 # Technologies
 ## Python libraries

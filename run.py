@@ -1,10 +1,9 @@
-import requests
 import time
 from os import system, name
+import requests
 from termcolor import colored
 import gspread
 from google.oauth2.service_account import Credentials
-import numpy as np
 
 
 
@@ -81,23 +80,19 @@ def get_user_inputs():
             user_name = input(colored("Enter name: ", "green")).capitalize()
             if not user_name.isalpha():
                 raise ValueError(f"Only alphabetical characters allowed, you entered {user_name}")
-
             else:
-                # insert name in google sheet
                 break
-        except ValueError as e:
-            print(colored(f"Invalid entry: {e}\n", "red", attrs=['bold']))
+        except ValueError as error:
+            print(colored(f"Invalid entry: {error}\n", "red", attrs=['bold']))
 
     while True:
         try:
             city = input('please enter the name of the city :')
 
             # load weather details for the given city from the Rapid API    
-            response = weather_data = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={API_KEY}")
-            # response = requests.request("GET", request_url, headers=HEADERS)
-            # print(response.text)
+            response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={API_KEY}", timeout=10)
 
-            if response.status_code == 200:                
+            if response.status_code == 200:             
                 data = response.json()
                 # assign weather/temperature/humidity details to local variables
                 weather = data['weather'][0]['main']
@@ -117,8 +112,8 @@ def get_user_inputs():
                 break
             else:
                 print(colored('An error accurred', 'red'))
-        except ValueError as e:
-            print(colored(f"Invalid entry: {e}\n", "red", attrs=['bold']))     
+        except ValueError as error:
+            print(colored(f"Invalid entry: {error}\n", "red", attrs=['bold']))     
     user_weather_info = user_and_weather_info
     # display the options for a new round of selections
     back_to_main_page = input("Press enter to return back to the main page")

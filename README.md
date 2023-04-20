@@ -68,8 +68,8 @@
 The data being entered by user are validated to ensure the intended values are entered, the following is an example.
 ![Validate user input ](assets/images/user-input-validation-results.png)
 
-2. Save non-exist data
-If user chooses option 5 (Save your data in our records) where no data is entered by him/her, a warning letter is displayed.
+2. Save non-exist data.
+If user chooses option 4 (Save your data in our records) where no data is entered by him/her, a warning letter is displayed.
 ![Save non-exist data ](assets/images/save-non-existing-data.png)
 
 ## HTML Validation.

@@ -95,7 +95,7 @@ def get_user_inputs():
             # load weather details for the given city from the Rapid API    
             response = weather_data = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={API_KEY}")
             # response = requests.request("GET", request_url, headers=HEADERS)
-            print(response.text)
+            # print(response.text)
 
             if response.status_code == 200:                
                 data = response.json()
@@ -138,7 +138,7 @@ def get_user_inputs():
 
 def transfer_data_to_google_sheet():    
         try:
-            # if (user_weather_info != None) and (activity != None):
+            # if (user_weather_info != "") and (activity != ""):
                 print("IN transfer_data_to_google_sheet")
                 user_weather_details = user_weather_info
                 # user_weather_details_array = np.array(user_weather_details)
@@ -190,7 +190,8 @@ def options():
     print("2 - Search weather ")
     print("3 - Enter the picnic details ")
     print("4 - Save your data in our records ")
-    print("Please type '1', '2', '3' or '4' below to select the related option")
+    print("5 - Exit plan_for_a_picnic")
+    print("Please type '1', '2', '3', '4' or '5' below to select the related option")
     select_option()
 
 
@@ -201,20 +202,19 @@ def select_option():
     try:
         option = int(input(""))
         if option == 1:
-            print("OPTION 1")
             learn_about_project()
 
         elif option == 2:
-            print("OPTION 2")
             main()
 
         elif option == 3:
-            print("OPTION 3")
             get_activity_details()
         
         elif option == 4:
-            print("OPTION 4")
             transfer_data_to_google_sheet()
+
+        elif option == 5:
+            close_and_exit()
 
         else:
             raise ValueError
@@ -296,7 +296,16 @@ def get_activity_details():
     else:
         clear_console()
         options()
-    
+
+
+def close_and_exit():
+    """
+    quit plan_for_a_picnic
+    """
+    print("\n You are about to exit 'PLAN FOR A PICNIC'")
+    time.sleep(2)
+    clear_console()
+    exit()   
 
 
 def main():

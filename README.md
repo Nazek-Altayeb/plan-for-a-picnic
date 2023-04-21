@@ -144,5 +144,5 @@ The bug was fixed by putting each input in a seperated validation block.
 
 # Acknowledgements 
 
-* Thanks for the Tutor Support and my mentor Reuben for guidance and tips.
+* Thanks for the Tutor Support and **Reuben Ferrante** for  helpful feedback and tips.
 * I programmed the project my self. references are added to the code for external source code.

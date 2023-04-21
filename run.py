@@ -158,7 +158,7 @@ def learn_about_project():
     """
     clear_console()
     print(colored("Welcome to Plan_For_A_picnic project.\n", "green"))
-    print(colored("The project gives recommondation whether it's a good idea to go out  according to the weather condition, and all resulted data could be saved in our records once you choose to do so. \n", "green"))
+    print(colored("The project gives recommondation whether it's a good idea to go out  according to the weather condition,\n and all resulted data could be saved in our records once you choose to do so. \n", "green"))
 
     # display the options for a new round of selections
     back_to_main_page = input("Press enter to return back to the main page")

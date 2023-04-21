@@ -138,7 +138,7 @@ def transfer_data_to_google_sheet():
             print('data being transfer to google sheet', data)
             update_worksheet(data, 'activities')
         else:                
-            print(colored('Saving your details could be possible only when all details are exist', 'yellow'))              
+            print(colored('Saving your details could be possible only when all details are exist\n.Make sure to enter required info in options 2 and 3', 'yellow'))              
     except ValueError as error:
         print(colored(f"An error accurred : {error}\n", "red", attrs=['bold'])) 
 

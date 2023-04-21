@@ -10,9 +10,10 @@
 
 # User Experience
 ## Design / Colour scheme
-   The mock terminal background is colored in 'Foggy Grey', 
+ 1. The mock terminal background is colored in 'Foggy Grey', 
    the 'Run Program' button is colored in Revolver,
    and the border of both has been colored in 'Grey Suit'.
+ 2. ['favicon'](https://favicon.io/favicon-generator/) : used to generate unique icon for the application.
 
 ## Target audience
   * Readers from all ages.

@@ -115,6 +115,7 @@ def get_user_inputs():
         except ValueError as error:
             print(colored(f"Invalid entry: {error}\n", "red", attrs=['bold']))     
     user_weather_info = user_and_weather_info
+
     # display the options for a new round of selections
     back_to_main_page = input("Press enter to return back to the main page")
     if back_to_main_page is None:
@@ -137,6 +138,8 @@ def transfer_data_to_google_sheet():
                 print(colored('Saving your details could be possible only when all details are exist', 'yellow'))              
         except ValueError as e:
             print(colored(f"An error accurred : {e}\n", "red", attrs=['bold'])) 
+
+        # display the options for a new round of selections    
         back_to_main_page = input("Press enter to return back to the main page")
         if back_to_main_page is None:
             clear_console()

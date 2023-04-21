@@ -24,6 +24,7 @@ SHEET = GSPREAD_CLIENT.open('plan_for_a_picnic')
 user_weather_info = ""
 activity = ""
 
+
 # reference : https://github.com/Code-Institute-Submissions/pokedex/blob/main/run.py
 def start():
     """
@@ -59,7 +60,6 @@ def clear_console():
     # for mac and linux(here, os.name is 'posix')
     else:
         _ = system('clear')
-
 
 
 def get_user_inputs():
@@ -126,27 +126,30 @@ def get_user_inputs():
         options()
 
 
-def transfer_data_to_google_sheet():    
-        try:
-            if (user_weather_info != "") and (activity != ""):
-                user_weather_details = user_weather_info
-                activity_info = activity
-                data = user_weather_details + activity_info
-                print('data being transfer to google sheet', data)
-                update_worksheet(data, 'activities')
-            else:                
-                print(colored('Saving your details could be possible only when all details are exist', 'yellow'))              
-        except ValueError as e:
-            print(colored(f"An error accurred : {e}\n", "red", attrs=['bold'])) 
+def transfer_data_to_google_sheet():
+    """
+    Transfer data to the google sheet onöy when  (user details, weather details, activity details) are exist
+    """
+    try:
+        if (user_weather_info != "") and (activity != ""):
+            user_weather_details = user_weather_info
+            activity_info = activity
+            data = user_weather_details + activity_info
+            print('data being transfer to google sheet', data)
+            update_worksheet(data, 'activities')
+        else:                
+            print(colored('Saving your details could be possible only when all details are exist', 'yellow'))              
+    except ValueError as error:
+        print(colored(f"An error accurred : {error}\n", "red", attrs=['bold'])) 
 
-        # display the options for a new round of selections    
-        back_to_main_page = input("Press enter to return back to the main page")
-        if back_to_main_page is None:
-            clear_console()
-            options()
-        else:
-            clear_console()
-            options()
+    # display the options for a new round of selections    
+    back_to_main_page = input("Press enter to return back to the main page")
+    if back_to_main_page is None:
+        clear_console()
+        options()
+    else:
+        clear_console()
+        options()
 
 
 def learn_about_project():
@@ -209,11 +212,14 @@ def select_option():
 
 
 def recommondation(temperature, humidity):
+    """
+    Print a recommondation to the user according to the weather
+    """
     if (temperature > 85) and (humidity > 80):
         return 'stay inside as the weather is hot and the humidity is high'
-    elif (temperature < 50):
+    elif temperature < 50:
         return 'stay inside as the weather is cold'
-    elif (humidity > 80):
+    elif humidity > 80:
         return 'it is unlikely you will enjoy your picnic, the humid is high out side.'
     elif (temperature >= 50) and (temperature <= 85) and (humidity <= 80):
         return 'The weather looks fine, enjoy your picnic'
@@ -232,12 +238,11 @@ def update_worksheet(data, worksheet):
     print(f" {worksheet} worksheet Updated successfully...\n")
 
 
-
 def get_activity_details():
-    global activity
     """
     get user's picnic-details (picnic duration, date time, activity name, )
     """
+    global activity
     print("Please enter the following activity details")
     print("You will be asked to enter them one by one")
     activity_name = None
@@ -290,6 +295,9 @@ def close_and_exit():
 
 
 def main():
+    """
+    Here the program starts
+    """
     get_user_inputs()
 
 
